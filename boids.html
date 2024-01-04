@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<title>Rotating Square</title>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+attribute vec4 vColor;
+
+//must be uniform to use getUniformLocation in js 
+uniform mat4 M_Persp;
+uniform mat4 M_Camera;
+
+// varying type variable to share with fragment shader, as the color
+// will be sent to the fragment shader
+//varying is for sending between vertext and fragment
+varying vec4 fColor;
+
+void main() {
+
+	gl_Position = M_Persp * M_Camera * vPosition;
+
+	fColor = vColor;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+precision mediump float;
+
+// vertex color coming from vertex shader
+varying vec4 fColor;
+
+void main() {
+	//gl
+    gl_FragColor = fColor;
+}
+
+</script>
+<script type="text/javascript" src="./common/utils.js"></script>
+<script type="text/javascript" src="./common/initShaders.js"></script>
+<script type="text/javascript" src="./boids.js"></script>
+<script type="text/javascript" src="./common/xform.js"></script>
+<script type="text/javascript" src="./common/mat_vec.js"></script>
+<script type="text/javascript" src="tetra.js"></script>
+</head>   
+
+<body>
+
+<canvas id="gl-canvas" width="512" height="512">
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+
+</body>
+</html>
